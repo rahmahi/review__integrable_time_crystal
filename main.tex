@@ -68,6 +68,13 @@ superscriptaddress,
 \providecommand{\Tr}{\operatorname{Tr}}
 \providecommand{\ket}[1]{|#1\rangle}
 \providecommand{\bra}[1]{\langle #1|}
+%% Custom commands
+\newcommand{\bmk}{\bm{k}}
+\newcommand{\bmq}{\bm{q}}
+\newcommand{\bmr}{\bm{r}}
+\newcommand{\bmrp}{\bm{r}^\prime}
+\newcommand{\bmu}{\bm{u}}
+
 
 \bibliographystyle{apa7-revtex}
 \let\cite\citep   % make every \cite parenthetical: (Author, Year)
@@ -144,120 +151,155 @@ Spontaneous symmetry breaking underlies the emergence of spatial order in conden
 %==============================================================
 \section{\label{sec:intro}Introduction}
 %==============================================================
-Symmetry is a central organizing principle of nature. In condensed matter, the spontaneous breaking of symmetry underlies the emergence of order. A ferromagnet breaks spin-rotation symmetry, while a crystal breaks continuous translational symmetry. In both cases, the ground state or thermal state exhibits less symmetry than the Hamiltonian from which it arises. The quest for a new phase of matter is paramount in order to development of science and progress of technology. 
 
-In 2012, Wilczek asked whether \emph{time}-translation symmetry could be broken in classical as well as in domain of quantum mechanics. It is interesting the proposed time translational symmetry breaking(TTSB) was such that a quantum system in its lowest-energy state would move periodically forever~\cite{Wilczek2012,ShapereWilczek2012}. This directly questioned the laws of thermodynamics. Eventually, the proposal was quickly challenged and criticized broadly. Patrick Bruno~\cite{Bruno2013} and later Watanabe and Oshikawa~\cite{WatanabeOshikawa2015} showed that ground states and Gibbs states of local Hamiltonians cannot exhibit long-range order in time. This lead to a no-go theorem. Watanabe and Oshikawa defined this order using the correlator $\langle O(\mathbf{x},t)\,O(0,0)\rangle$, and later work made the result rigorous for Gibbs states~\cite{WatanabeOshikawaKoma2020}. 
+Symmetry is a central organizing principle of nature. In condensed matter, the spontaneous breaking of symmetry underlies the emergence of order. A ferromagnet breaks spin-rotation symmetry, while a crystal breaks continuous spatial translations down to a discrete lattice subgroup. In both cases, the ground state or thermal state exhibits less symmetry than the Hamiltonian from which it arises. The search for new phases of matter, and for the symmetries they break, is central to the development of condensed-matter physics and to technological progress. Since relativity places space and time on an equal footing, it is natural to ask whether time-translation symmetry can be broken in the same way.
 
-However, the idea of legitimate TTSB was revived by considering the quantum system to be far from equilibrium. In a periodically driven many body quantum system, the Hamiltonian satisfies $H(t+T)=H(t)$, and only the \emph{discrete} time-translation symmetry $t\to t+T$ remains. However, if the state and corresponding observables respond with a period $mT$, where $m>1$ is an integer, the discrete time-translation symmetry is spontaneously broken. This is the essence of a \emph{discrete time crystal} (DTC)~\cite{Sacha2015,KhemaniPRL2016,ElseBauerNayak2016,vonKeyserlingk2016,YaoPRL2017}. The response must also be robust against perturbations and persist in the thermodynamic limit. Within a year of these proposals, signatures of period doubling were reported in trapped ions~\cite{Zhang2017} and in dense ensembles of nitrogen-vacancy (NV) centres~\cite{Choi2017}.
+In 2012, Wilczek and Shapere asked precisely this question for quantum~\cite{Wilczek2012} and classical~\cite{ShapereWilczek2012} systems, and coined the term \emph{time crystal}. In the proposed scenario, a quantum system in its lowest-energy state would move periodically forever, for example a rotating density modulation of interacting charged bosons on a ring threaded by magnetic flux. Such motion would not allow energy to be extracted, but it sits uneasily with the expectation that equilibrium states are stationary. The proposal was soon challenged. Bruno argued that ground states cannot rotate spontaneously~\cite{Bruno2013Comment,Bruno2013}, and Watanabe and Oshikawa formulated a general no-go theorem~\cite{WatanabeOshikawa2015}. Because any eigenstate or Gibbs state is trivially stationary, time-translation symmetry breaking (TTSB), like ordinary spontaneous symmetry breaking, can only be detected through correlations. Watanabe and Oshikawa therefore defined TTSB through the correlator of an extensive observable $\hat O=\int d^dx\,O(\mathbf{x})$,
+\begin{equation}
+  f(t)=\lim_{V\to\infty}\frac{1}{V^{2}}\big\langle e^{iHt}\hat O\, e^{-iHt}\hat O\big\rangle,
+  \label{eq:WO}
+\end{equation}
+and showed that $f(t)$ is time-independent in the ground state and in Gibbs states of local Hamiltonians. The Gibbs-state result was later established rigorously~\cite{WatanabeOshikawaKoma2020}. Time crystals are therefore forbidden in equilibrium.
 
-In this short review, we focus on the Floquet algebraic origin of long-lived oscillations and their dependence on driving protocols, initial states, and interactions. We highlight theoretical and experimental advances and the roles of symmetry, dimensionality, and dissipation in stabilizing DTCs. We restrict our attention to disorder-free, interacting spin-$1/2$ systems.  We also discuss the role of integrability in producing persistent oscillations, which is a prerequisite for time crystalline order.
+The idea of TTSB was revived by considering quantum systems driven far from equilibrium. In a periodically driven many-body quantum system, the Hamiltonian satisfies $H(t+T)=H(t)$, and only the \emph{discrete} time-translation symmetry $t\to t+T$ remains. If the state and the corresponding observables respond with a period $mT$, where $m>1$ is an integer, this discrete symmetry is spontaneously broken. This is the essence of a \emph{discrete time crystal} (DTC)~\cite{Sacha2015,KhemaniPRL2016,ElseBauerNayak2016,vonKeyserlingk2016,YaoPRL2017}. The response must also be robust against perturbations, accompanied by spatial long-range order, and persist in the thermodynamic limit. The main obstacle is that generic interacting driven systems absorb energy and heat to a featureless infinite-temperature state. The first proposals avoided this through disorder-induced many-body localization, while prethermalization at high driving frequency and long-range interactions were later identified as disorder-free routes. Soon after these proposals, signatures of period doubling were reported in trapped ions~\cite{Zhang2017} and in dense ensembles of nitrogen-vacancy (NV) centres~\cite{Choi2017}. These were followed by observations in NMR systems~\cite{Pal2018,Rovny2018}, nuclear-spin registers~\cite{Randall2021}, prethermal trapped-ion chains~\cite{Kyprianidis2021}, and superconducting quantum processors~\cite{Mi2022}. Comprehensive reviews can be found in Refs.~\cite{SachaZakrzewski2018,Else2020,Zaletel2023}.
+
+In this short review, we focus on the Floquet algebraic origin of long-lived oscillations and their dependence on driving protocols, initial states, and interactions. We highlight theoretical and experimental advances and the roles of symmetry, dimensionality, and dissipation in stabilizing DTCs. We restrict our attention to disorder-free, interacting spin-$1/2$ systems, where many-body localization is unavailable and robustness must come from other mechanisms. We also discuss the role of integrability, which suppresses heating and can sustain persistent oscillations, and ask when these oscillations survive integrability-breaking perturbations and so constitute genuine time-crystalline order.
 
 %==============================================================
 \subsection{Background}
-With the no-go theorem, the search for time crystals shifted to nonequilibrium systems. The first proposals were for periodically driven (Floquet) systems, which have discrete time-translation symmetry. In order to break this symmetry, the system must respond with a period that is an integer multiple of the drive period. To comprehend this, we first review the Floquet formalism. For a $T=2\pi/\omega_D$-periodic Hamiltonian, $\displaystyle H(t)=H(t+T)$, and the wavefunction $\ket{\psi(t)}$ obeys the Schr\"odinger equation $i\partial_t\ket{\psi(t)}=H(t)\ket{\psi(t)}$, to obtain the stroboscopic evolution associated with observables. This is time translation symmetry. 
+\label{sec:background}
 
-However, if there exists an operator $\hat{\mathcal{O}}$ corresponding to a short range correlated wave function such that,
+With the no-go theorem, the search for time crystals shifted to nonequilibrium systems. The first proposals were for periodically driven (Floquet) systems, which retain only a discrete time-translation symmetry. To break this symmetry, the system must respond with a period $mT$ that is an integer multiple $m>1$ of the drive period $T$. To understand how such a response can arise, we first review the Floquet formalism.
+
+For a Hamiltonian with period $T=2\pi/\omega_D$, $H(t+T)=H(t)$, the wavefunction $\ket{\psi(t)}$ obeys the Schr\"odinger equation $i\partial_t\ket{\psi(t)}=H(t)\ket{\psi(t)}$ (we set $\hbar=1$). The stroboscopic evolution, which determines the observables at times $t=nT$, is generated by the Floquet operator
 \begin{equation}
-  \expval{\hat{\mathcal{O}}}{\psi(nT)} = \expval{\hat{\mathcal{O}}}{\psi(0)},
+  \begin{aligned}
+    U_F\equiv U(T,0)&=\mathcal{T}\exp\!\left[-i\int_0^T H(t)\,dt\right]
+      =e^{-iH_FT},\\
+    \ket{\psi(nT)}&=U_F^{n}\ket{\psi(0)}.
+  \end{aligned}
+  \label{eq:UF}
 \end{equation}
-where $n>0$ is an integer, then the system is said to have broken the discrete time translation symmetry. Then the system is expected to respond with a period $mT$, where $m>1$ is an integer. This manifest subharmonic reponses which can be readily observed in Fourier spectrum of the observable $\hat{\mathcal{O}}$. 
+where $\mathcal{T}$ denotes time ordering and $H_F$ is the Floquet Hamiltonian. By Floquet's theorem, the solutions of the Schr\"odinger equation can be written as $\ket{\psi_\alpha(t)}=e^{-i\varepsilon_\alpha t}\ket{\phi_\alpha(t)}$, where $\ket{\phi_\alpha(t+T)}=\ket{\phi_\alpha(t)}$ and the quasienergies $\varepsilon_\alpha$ are defined modulo $\omega_D$. The Floquet eigenstates $\ket{\phi_\alpha(0)}$ are invariant under $U_F$ up to a phase. They therefore respect the discrete time-translation symmetry $t\to t+T$, and play the role that energy eigenstates and Gibbs states play in equilibrium. Any breaking of this symmetry must therefore be spontaneous.
 
-However, this does not guarantee the manifestation of a discrete time crystal. The response should emerge from the dynamics of the interacting driven system. Additionally, to label a system as a time crystal, it should follow certain criteria. The criteria for a discrete time crystal are as follows:
+Discrete time-translation symmetry is spontaneously broken if, for generic short-range correlated initial states $\ket{\psi(0)}$ (for instance product states), the stroboscopic expectation value $f(nT)=\expval{\hat{\mathcal{O}}}{\psi(nT)}$ of some local observable $\hat{\mathcal{O}}$ is not $T$-periodic but repeats only after $m>1$ periods,
+\begin{equation}
+  f\big((n+1)T\big)\neq f(nT), \qquad f\big((n+m)T\big)=f(nT).
+  \label{eq:DTTSB}
+\end{equation}
+This manifests as a subharmonic response, which can be readily observed as a peak at frequency $\omega_D/m$ in the Fourier spectrum of $f(nT)$. Equivalently, the Floquet eigenstates are long-range correlated cat states. Their quasienergies are organized in multiplets split by $\omega_D/m$, which is the Floquet analogue of the correlator criterion in Eq.~\eqref{eq:WO}~\cite{ElseBauerNayak2016,vonKeyserlingk2016}.
+
+A subharmonic response alone, however, does not guarantee a discrete time crystal. The response must emerge from the collective dynamics of the interacting driven system. Non-interacting spins subjected to perfect $\pi$ pulses flip every period and trivially show period doubling. A spin-rotation error $\varepsilon_r$, however, shifts the response frequency from $\pi/T$ to $\pi(1-\varepsilon_r)/T$, so the period is not locked. To label a system a discrete time crystal, it must therefore satisfy the following criteria~\cite{KhemaniPRL2016,ElseBauerNayak2016,YaoPRL2017}:
 \begin{enumerate}
   \renewcommand{\labelenumi}{\alph{enumi})}
-  \item The system should exhibit spontaneous breaking of discrete time-translation symmetry: a local observable $f(t)$ should satisfy $f(t) \neq f(t+T)$, even though the Hamiltonian is periodic, $\hat{H}(t)=\hat{H}(t+T)$.
-  \item The response should exhibit robust subharmonic oscillations without fine-tuning the system parameters and should remain stable under perturbations.
-  \item The oscillations should persist indefinitely in the thermodynamic limit, $N \to \infty$.
+  \item The system should exhibit spontaneous breaking of discrete time-translation symmetry: for generic short-range correlated initial states, the stroboscopic expectation value of a local observable should satisfy Eq.~\eqref{eq:DTTSB}, even though the Hamiltonian is periodic, $\hat{H}(t)=\hat{H}(t+T)$.
+  \item The response should be rigid: the subharmonic oscillations should remain locked at period $mT$ over a finite range of parameters, including imperfect pulses, without fine-tuning the system parameters.
+  \item The oscillating order parameter should be long-range correlated in space, and the oscillations should persist indefinitely in the thermodynamic limit. The limits must be taken in the order $\lim_{nT\to\infty}\lim_{N\to\infty}$, since in any finite system tunnelling between the cat-state partners eventually destroys the oscillation.
 \end{enumerate}
-Therefore, the dynamics of a periodically driven interacting system must support a robust subharmonic response that persists in the thermodynamic limit. In generic driven systems, energy absorption eventually leads to heating toward infinite temperature due to ETH(Eigenstate thermaliation hypothesis)~\cite{Deutsch1991ETH, Srednicki1994ETH, DAlessio2016ETH}, thereby destroying this response. A central challenge is therefore to identify mechanisms that suppress heating while stabilizing the subharmonic dynamics. One widely studied approach is to localize the many-body system throughout the drive cycle.
+Therefore, the dynamics of a periodically driven interacting system must support a robust subharmonic response that persists in the thermodynamic limit. In generic driven systems, however, energy absorption from the drive leads to heating toward infinite temperature. Because a periodic drive conserves no energy, the Floquet eigenstates of a generic interacting system satisfy a Floquet version of the eigenstate thermalization hypothesis (ETH)~\cite{Deutsch1991ETH,Srednicki1994ETH,DAlessio2016ETH}. Local observables then relax to their infinite-temperature values, which destroys the subharmonic response~\cite{DAlessioRigol2014,LazaridesDasMoessner2014,Ponte2015Annals}. A central challenge is therefore to identify mechanisms that suppress heating while stabilizing the subharmonic dynamics. One widely studied approach is to localize the many-body system throughout the drive cycle. Other approaches slow down or prevent heating without localization.
 
-Several theoretically and experimentally established mechanisms can provide such localization or otherwise suppress heating. The most widely used approach is to introduce strong disorder, which can produce many-body localization (MBL)~\cite{Basko2006,PalHuse2010}. MBL inhibits energy absorption from the drive and thus prevents heating to infinite temperature. However, it is vulnerable to external perturbations that can induce delocalization and ultimately destroy the localized phase. A second approach is to use a clean, disorder-free system driven at high frequency. Such a system can enter a prethermal regime in which its dynamics are governed, for long but finite times, by an effective time-independent Hamiltonian before eventual heating occurs~\cite{Ponte2015, Mori2016}. Additionally, precise engineering in drive protocols can nullify the dynamics of the system, thereby suppressing the thermalization and eventually produce a prethermal regime~\cite{Banerjee_2025}. A further approach is to consider an integrable system whose dynamics are constrained by an extensive set of conserved quantities. Under appropriate conditions, integrability can support persistent oscillations and prevent heating to infinite temperature~\cite{Medenjak2020PRB}.
+Several theoretically and experimentally established mechanisms can provide such localization or otherwise suppress heating. The most widely used approach is to introduce strong disorder, which can produce many-body localization (MBL)~\cite{Basko2006,PalHuse2010}. MBL persists under periodic driving~\cite{PontePRL2015,LazaridesPRL2015}. Its extensive set of quasi-local integrals of motion inhibits energy absorption from the drive and thus prevents heating to infinite temperature. MBL is stable against weak perturbations within the isolated system. It is, however, destroyed by coupling to an environment, and its stability in higher dimensions, with long-range interactions, and asymptotically even in one dimension remains under active debate.
 
-The next section introduces the generic drive protocol for a discrete time crystal. We then review established results on the mechanisms that produce robust discrete time-crystalline order in such systems.
+A second approach is to use a clean, disorder-free system driven at high frequency. When the drive frequency is large compared with the local energy scale $J$, heating is exponentially slow, with a rate bounded by $e^{-c\,\omega_D/J}$~\cite{AbaninPRL2015,Mori2016,Abanin2017}. The system then enters a prethermal regime in which its dynamics are governed, for long but finite times, by an effective time-independent Hamiltonian before eventual heating occurs. By the Watanabe--Oshikawa theorem, such a static effective Hamiltonian alone cannot host a time crystal. For a drive containing a near-$\pi$ global spin flip $P$, however, the Floquet operator takes the form $U_F\approx P\,e^{-iDT}$, where the effective Hamiltonian $D$ has an emergent $\mathbb{Z}_2$ symmetry, $[D,P]=0$~\cite{ElseBauerNayakPRX2017}. If the prethermal state of $D$ spontaneously breaks this symmetry, the system shows period doubling. This requires a finite-temperature ordered phase, and the oscillation persists up to the exponentially long heating time rather than strictly forever.
 
-\begin{figure}[]
+Additionally, precise engineering of the drive protocol can strongly suppress thermalization. At special drive amplitudes and frequencies, the leading-order Floquet Hamiltonian can acquire emergent conservation laws or vanish altogether. This dynamical freezing suppresses thermalization and produces a long-lived prethermal regime~\cite{Banerjee_2025}.
+
+A further approach is to consider an integrable system whose dynamics are constrained by an extensive set of conserved quantities. Such a system relaxes to a generalized Gibbs ensemble rather than to infinite temperature. Under appropriate conditions, integrability can then support persistent oscillations. These arise when the dynamics admits a dynamical symmetry, an operator $\hat{A}$ satisfying $U_F^\dagger\hat{A}\,U_F=e^{i\theta}\hat{A}$, for which $\theta=\pi$ gives period doubling. In isolated Hamiltonian systems, the analogous condition $[H,\hat{A}]=\omega\hat{A}$ sustains undamped oscillations~\cite{Medenjak2020PRB}. For the kicked Ising chain at perfect $\pi$ pulses, $\hat{A}=\sigma^z_j$ satisfies this condition with $\theta=\pi$ on every site. Each of the mechanisms above can then be viewed as a way of ensuring that a dressed version of $\sigma^z_j$ survives pulse errors.
+
+The next section introduces the generic drive protocol for a discrete time crystal, shown schematically in Fig.~\ref{fig:dtc_fig_a}. We then review established results on the mechanisms that produce robust discrete time-crystalline order in such systems.
+
+\begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{figs/dtc_fig_a.pdf}
-  \caption{Schematic of the discrete time crystal drive protocol: The system evolves under two Hamiltonians, $\hat{H}_1$ and $\hat{H}_2$, for durations $T_1$ and $T_2=T-T_1$, respectively. The first step implements an approximately global spin flip, while the second is generated by an interacting local or quasi-local Hamiltonian. The resulting stroboscopic magnetization exhibits a subharmonic response with period $2T$.}
+  \caption{Schematic of the discrete time crystal drive protocol. The system evolves under two Hamiltonians, $\hat{H}_1$ and $\hat{H}_2$, for durations $T_1$ and $T_2=T-T_1$, respectively. The first step, $\hat{H}_1=\frac{\pi}{2T_1}(1-\varepsilon_r)\sum_j\hat{\sigma}^x_j$, implements an approximately global spin flip with spin-rotation error $\varepsilon_r$, while the second is generated by an interacting local or quasi-local Hamiltonian. Over a finite range of $\varepsilon_r$, the resulting stroboscopic magnetization exhibits a subharmonic response locked at period $2T$.}
   \label{fig:dtc_fig_a}
 \end{figure}
+
 \subsection{Discrete time crystal}
 \label{sec:dtc}
-The canonical protocol for realizing a discrete time crystal is based on a binary Floquet drive. During each period, the system evolves under two Hamiltonians, $\hat{H}_1$ and $\hat{H}_2$, for durations $T_1$ and $T_2=T-T_1$, respectively. The one-period Floquet operator is therefore
-\begin{equation}
-  \hat{U}_F = \exp(-i \hat{H}_2 T_2) \exp(-i \hat{H}_1 T_1).
-  \label{eq:binary_floquet}
-\end{equation}
-The first step is chosen to implement an approximately global spin flip, while the second is generated by an interacting local or quasi-local Hamiltonian. For a spin-$1/2$ chain, a representative choice is
-\begin{equation}
-  \hat{H}_1=g\sum_i\hat{\sigma}_i^x,
-  \qquad
-  \hat{H}_2=\sum_i\left(J_i\hat{\sigma}_i^z\hat{\sigma}_{i+1}^z
-  +h_i\hat{\sigma}_i^z\right),
-\end{equation}
-where $gT_1 = \pi/2(1-\varepsilon_r)$, $J_i$ and $h_i$ denote random couplings and longitudinal fields, $\varepsilon_r$ is spin rotation error, which is zero for ideal pulses. Defining the two parts of the drive as
+
+The canonical protocol for realizing a discrete time crystal is based on a binary Floquet drive, shown schematically in Fig.~\ref{fig:dtc_fig_a}. During each period, the system evolves under two Hamiltonians, $\hat{H}_1$ and $\hat{H}_2$, for durations $T_1$ and $T_2=T-T_1$, respectively. Defining
 \begin{equation}
   \hat{U}_1=e^{-i\hat{H}_1T_1},
   \qquad
   \hat{U}_2=e^{-i\hat{H}_2T_2},
-  \qquad
-  \hat{U}_F=\hat{U}_2\hat{U}_1.
 \end{equation}
-the first step flips every spin,
+the one-period Floquet operator is
+\begin{equation}
+  \hat{U}_F=\hat{U}_2\hat{U}_1=e^{-i\hat{H}_2T_2}\,e^{-i\hat{H}_1T_1}.
+  \label{eq:binary_floquet}
+\end{equation}
+The first step is chosen to implement an approximately global spin flip, while the second is generated by an interacting local or quasi-local Hamiltonian. For a spin-$1/2$ chain, a representative choice is~\cite{YaoPRL2017}
+\begin{equation}
+  \hat{H}_1=g\sum_i\hat{\sigma}_i^x,
+  \qquad
+  \hat{H}_2=\sum_i\left(J_i\hat{\sigma}_i^z\hat{\sigma}_{i+1}^z+h_i\hat{\sigma}_i^z\right),
+  \label{eq:binary_model}
+\end{equation}
+where $J_i$ and $h_i$ denote random couplings and longitudinal fields. Experimentally, the global spin flip is implemented by a nominal $\pi$ pulse, which is generally imperfect. We parametrize the pulse imperfection by
+\begin{equation}
+  g=\frac{\pi}{2T_1}\left(1-\varepsilon_r\right),
+  \label{eq:pulse_error}
+\end{equation}
+so that $\hat{U}_1$ rotates every spin about the $x$ axis by the angle $\pi(1-\varepsilon_r)$. The spin-rotation error $\varepsilon_r$ vanishes for ideal pulses.
+
+For an ideal pulse, $\varepsilon_r=0$, the first step reduces to $\hat{U}_1=(-i)^N\hat{P}$ with $\hat{P}=\prod_i\hat{\sigma}_i^x$, and flips every spin,
 \begin{equation}
   \hat{U}_1^\dagger\hat{\sigma}_i^z\hat{U}_1=-\hat{\sigma}_i^z,
   \qquad
-  \hat{U}_1^\dagger\left(\sum_i\hat{\sigma}_i^z\right)\hat{U}_1
-  =-\sum_i\hat{\sigma}_i^z,
+  \hat{U}_1^\dagger\Big(\sum_i\hat{\sigma}_i^z\Big)\hat{U}_1=-\sum_i\hat{\sigma}_i^z .
 \end{equation}
-whereas the disordered interacting evolution generated by $\hat{H}_2$ can support many-body localization and thereby inhibit heating. The resulting stroboscopic magnetization is
+The stroboscopic magnetization is
 \begin{equation}
-  M(nT)=\frac{1}{N}\sum_i
-  \langle\psi_0|\hat{U}_F^{-n}\hat{\sigma}_i^z\hat{U}_F^n|\psi_0\rangle.
+  M(nT)=\frac{1}{N}\sum_i\langle\psi_0|(\hat{U}_F^\dagger)^n\,\hat{\sigma}_i^z\,\hat{U}_F^n|\psi_0\rangle .
+  \label{eq:magnetization}
 \end{equation}
-In the ideal pulse limit, this magnetization alternates between successive periods,
+Since $\hat{H}_2$ commutes with every $\hat{\sigma}_i^z$, at $\varepsilon_r=0$ we have $\hat{U}_F^\dagger\hat{\sigma}_i^z\hat{U}_F=-\hat{\sigma}_i^z$. This is precisely the dynamical symmetry with $\theta=\pi$ introduced in Sec.~\ref{sec:background}. The magnetization therefore alternates between successive periods,
 \begin{equation}
-  M(nT)\simeq(-1)^nM(0),
+  M(nT)=(-1)^nM(0),
   \qquad
-  M((n+2)T)=M(nT).
+  M\big((n+2)T\big)=M(nT).
 \end{equation}
-Thus, the observable responds with period $2T$, rather than with the drive period $T$, signaling the subharmonic response associated with discrete time-translation-symmetry breaking. In a genuine discrete time-crystalline phase, this response must remain stable against perturbations and persist indefinitely in the thermodynamic limit.
-\begin{figure}[]
+Thus, the observable responds with period $2T$, rather than with the drive period $T$, signaling the subharmonic response associated with discrete time-translation symmetry breaking. At this fine-tuned point, however, the period doubling is trivial, since it holds equally in the absence of interactions. In a genuine discrete time-crystalline phase, the response must remain stable against perturbations and persist indefinitely in the thermodynamic limit.
+
+The defining feature of the discrete time-crystalline phase is that the subharmonic response remains stable over a finite interval of $\varepsilon_r$, rather than occurring only at the fine-tuned value $\varepsilon_r=0$. This robustness arises from the interacting dynamics during the $T_2$ interval, provided that heating is suppressed and the time-crystalline order is preserved. Figure~\ref{fig:dtc_fig_b} illustrates this at $\varepsilon_r=0.1$. In the non-interacting limit, $J_i=0$ (with $h_i=0$), each spin simply rotates by $\pi(1-\varepsilon_r)$ per period, and the Fourier peak of the magnetization shifts from $\omega=\pi/T$ to $\omega=\pi(1-\varepsilon_r)/T$. In the presence of interactions, $J_i>0$, the peak remains sharply locked at $\omega=\pi/T$. The interaction term thus counteracts the phase error introduced by the finite spin-rotation error $\varepsilon_r$. It is therefore crucial for both the emergence and the stabilization of the subharmonic response~\cite{Chandra2024}.
+
+The origin of this locking can be understood from the structure of $\hat{U}_F$. At $\varepsilon_r=0$, its eigenstates are cat states $|\{s\}\rangle\pm e^{i\phi_s}|\{-s\}\rangle$ built from $\hat{\sigma}^z$ product states, with quasienergies differing by exactly $\pi/T$. A small rotation error flips individual spins and therefore creates domain walls, which cost an energy of order $J_i$. When the couplings and fields are random, these processes are generically off-resonant, so $\varepsilon_r$ acts only perturbatively. It dresses $\hat{\sigma}_i^z$ into quasi-local operators $\hat{\tau}_i^z$ that still satisfy $\hat{U}_F^\dagger\hat{\tau}_i^z\hat{U}_F\simeq-\hat{\tau}_i^z$, and the $\pi$ pairing survives with corrections exponentially small in the system size~\cite{KhemaniPRL2016,ElseBauerNayak2016,vonKeyserlingk2016}. This is the many-body-localized DTC. Its rigidity has been established theoretically~\cite{KhemaniPRL2016,ElseBauerNayak2016,vonKeyserlingk2016,YaoPRL2017,PhysRevResearch.6.033092}, and signatures of it have been observed experimentally~\cite{Zhang2017,Mi2022}.
+
+\begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{figs/dtc_fig_bc.pdf}
-  \caption{(a) Stroboscopic magnetization $M(nT) = \langle\hat{\sigma}_i^z(nT)\rangle$, showing period doubling at $\varepsilon_r=0.1$ for interacting systems($J_i>0$) and non-interacting systems($J_i=0$). (b) Fourier spectrum of the magnetization, showing a sharp peak at $\omega=\pi/T$.}
+  \caption{(a) Stroboscopic magnetization $M(nT)$, Eq.~\eqref{eq:magnetization}, at $\varepsilon_r=0.1$ for interacting ($J_i>0$) and non-interacting ($J_i=0$) chains. The interacting chain shows period doubling locked at $2T$, while the non-interacting chain shows beating. (b) Fourier spectrum of $M(nT)$. With interactions the peak is pinned at $\omega=\pi/T$; without interactions it shifts to $\omega=\pi(1-\varepsilon_r)/T$.}
+  % TODO: add N, distributions of J_i and h_i, T_1, T_2, and the initial state.
   \label{fig:dtc_fig_b}
 \end{figure}
 
-Experimentally, the global spin flip is implemented by a nominal $\pi$ pulse, which is generally imperfect. We parametrize the pulse imperfection by writing
+However, quenched disorder is not essential for realizing DTC order, and the asymptotic stability of MBL is itself under debate. We therefore turn to clean periodically driven systems, where dynamical many-body localization (DMBL) can suppress heating through the intrinsic dynamics and provide a route toward time-crystalline behavior in the absence of disorder. A representative example is a long-range Ising chain subject to a periodically modulated field,
 \begin{equation}
-  \hat{H}_1 = g \sum_i \hat{\sigma}^x_i,
+  \hat{H}_2(t)=\sum_{i<j}J_{ij}\,\hat{\sigma}_i^y\hat{\sigma}_j^y-h\sin(\omega t)\sum_i\hat{\sigma}_i^z,
+  \qquad
+  J_{ij}=\frac{J_0}{|i-j|^\alpha}.
+  \label{eq:dmbl}
 \end{equation}
-where $g = \frac{\pi}{2T_1} (1-\varepsilon_r)$ and $\varepsilon_r$ is the pulse imperfection parameter.
+As demonstrated in Refs.~\cite{rahaman2024prb,rahaman2024njp}, this model exhibits robust dynamical localization when the drive parameters satisfy $\mathcal{J}_0\left(4h/\omega\right)=0$, where $\mathcal{J}_0$ denotes the zeroth-order Bessel function of the first kind. The origin of this condition is clearest in the frame rotating with the field. Writing $\hat{\sigma}_i^y\hat{\sigma}_j^y$ in terms of $\hat{\sigma}^\pm$, the flip-flop terms $\hat{\sigma}_i^+\hat{\sigma}_j^-+\mathrm{h.c.}$ conserve $\sum_i\hat{\sigma}_i^z$ and are unaffected by the rotation. The pair-creation terms $\hat{\sigma}_i^+\hat{\sigma}_j^++\mathrm{h.c.}$ instead acquire the phase $e^{\pm i(4h/\omega)\cos\omega t}$. Averaged over a cycle, they are multiplied by $\mathcal{J}_0(4h/\omega)$ and therefore vanish at its zeros. To leading order in $1/\omega$, the effective Hamiltonian then conserves the total magnetization, which suppresses heating. This localization mechanism can be combined with the binary Floquet protocol of Eq.~\eqref{eq:binary_floquet}, with $\hat{H}_2(t)$ acting during the interval $T_2$ (chosen as an integer multiple of $2\pi/\omega$), to stabilize a subharmonic response and thereby realize DTC order in a clean system.
+
+A complementary route to realizing DTC order without disorder is provided by high-frequency driving. When the drive frequency $\omega_D$ is much larger than the local energy scale $J_{\rm loc}$, absorbing a single drive quantum requires a high-order many-body process. Consequently, the heating time is exponentially long~\cite{AbaninCMP2017,KuwaharaMoriSaito2016},
 \begin{equation}
-  \hat{H}_1 = \frac{\pi}{2T_1} (1-\varepsilon_r) \sum_i \hat{\sigma}^x_i.
+  \tau_{\rm heat}\gtrsim\exp\big(c\,\omega_D/J_{\rm loc}\big).
 \end{equation}
-The defining feature of the discrete time-crystalline phase is that the subharmonic response remains stable over a finite interval of $\varepsilon_r$, rather than occurring only at the fine-tuned value $\varepsilon_r=0$. This robustness arises from the interacting dynamics during the $T_2$ interval, provided that heating is suppressed and the time-crystalline order is preserved. This can be seen in the Fig.~\ref{fig:dtc_fig_b}, where the subharmonic response is robust against perturbations in the pulse imperfection $\varepsilon_r$. It is interesting that the in presence of the interaction term,$J_i>0$ only the FFT spectrum of the magnetization shows a sharp peak at $\omega=\pi/T$, where at the nil interaction limit, $J_i=0$, the peak is shifted from $\omega=\pi/T$ to $\omega=\pi(1-\varepsilon_r)/T$. This shows that the interaction term couteract against the phase difference introduced by the finite spin rotational error $\varepsilon_r$. Therefore, the interaction term is crucial for the emergence as well as stabilization of the subharmonic response. The robustness of the subharmonic response against perturbations in $\varepsilon_r$ is a defining feature of the discrete time-crystalline phase. The disorder induced MBL and consequently obtaining rigid DTC is theoretically \todo{put corresponding reference} as well as experimentally \todo{put corresponding reference} well established. 
+For times shorter than $\tau_{\rm heat}$, a suitable rotating-frame transformation brings the Floquet operator to the form $\hat{U}_F\approx\hat{P}\,e^{-i\hat{D}T}$. The effective static Hamiltonian $\hat{D}$ has an \emph{emergent} $\mathbb{Z}_2$ symmetry, $[\hat{D},\hat{P}]=0$. If the corresponding prethermal state spontaneously breaks this symmetry, the discrete time-translation symmetry is broken and the laboratory-frame observable exhibits a robust period-doubled response~\cite{ElseBauerNayakPRX2017}. Thus, the existence of a prethermal DTC is constrained by the same equilibrium symmetry-breaking considerations discussed above. For short-range interactions, finite-temperature breaking of a discrete symmetry requires $d\ge 2$, although sufficiently long-range interactions can modify this conclusion~\cite{Machado2020}. A prethermal DTC of this kind has been observed in a trapped-ion chain~\cite{Kyprianidis2021}.
 
+Another route to realizing DTC order in a clean system is provided by a two-tone drive protocol that dynamically cancels the interaction contribution to the Floquet Hamiltonian, resulting in flat quasienergy bands~\cite{Banerjee_2025}. In this scheme, the system is subjected to two square-wave drives with commensurate frequencies $\omega_1$ and $\omega_2$, satisfying $\omega_1=n\omega_2$, where $n>1$ is an odd integer. 
 
-However, quenched disorder is not essential for realizing DTC order. We therefore turn to clean periodically driven systems, where dynamical many-body localization (DMBL) can suppress heating through the intrinsic dynamics and provide a route toward time-crystalline behavior in the absence of disorder. A representative example is an Ising chain subject to a time-dependent transverse field,
-\begin{equation}
-  \hat{H}_2(t) = \sum_{i} J_{ij} \hat{\sigma}_i^y \hat{\sigma}_j^y - h\sin(\omega t) \sum_i \hat{\sigma}_i^z,
-\end{equation}
-where $J_{ij} = \frac{J_0}{|i-j|^\alpha}$. As demonstrated in Ref.~\cite{rahaman2024prb, rahaman2024njp}, this model exhibits robust dynamical localization when the drive parameters satisfy
-$\mathcal{J}_0\left(\frac{4h}{\omega}\right) = 0$, with $\mathcal{J}_0$ denoting the zeroth-order Bessel function of the first kind. This localization mechanism can then be combined with a binary Floquet protocol, analogous to that introduced in Eq.~\ref{eq:binary_floquet}, to stabilize a subharmonic response and thereby realize DTC order in a clean system.
-
-A complementary route to realizing DTC order without disorder is provided by high-frequency driving. When the drive frequency $\omega_D$ is much larger than the local energy scale $J_{\rm loc}$, absorbing a single drive quantum requires a high-order many-body process. Consequently, the heating time is exponentially long~\cite{AbaninCMP2017,KuwaharaMoriSaito2016}:
-\begin{equation}
-\tau_{\rm heat}\gtrsim\exp\big(c\,\omega_D/J_{\rm loc}\big).
-\end{equation}
-For times shorter than $\tau_{\rm heat}$, a suitable rotating-frame transformation produces an effective static Hamiltonian with an \emph{emergent} $\mathbb{Z}_2$ symmetry. If the corresponding prethermal state spontaneously breaks this symmetry, the discrete time-translation symmetry is broken and the laboratory-frame observable exhibits a robust period-doubled response~\cite{ElseBauerNayakPRX2017}. Thus, the existence of a prethermal DTC is constrained by the same equilibrium symmetry-breaking considerations discussed above: for short-range interactions, finite-temperature breaking of a discrete symmetry requires $d\ge 2$, although sufficiently long-range interactions can modify this conclusion.
-
-Another route to realizing DTC order in a clean system is provided by a two-tone drive protocol that dynamically cancels the interaction contribution to the Hamiltonian, results in a flat quasienergy band structure. In this scheme, the system is subjected to two drives with commensurate frequencies, $\omega_1$ and $\omega_2$, satisfying $\omega_1=n\omega_2$, where $n>1$ is an odd integer~\cite{Banerjee_2025}. The corresponding time-dependent Hamiltonian is
+The corresponding time-dependent Hamiltonian is
 \begin{multline}
-  \hat{H}_2(t) = \sum_{i} J \hat{\sigma}_i^x \hat{\sigma}_j^x + h\Sgn[\sin(\omega_1 t)] \sum_i \hat{\sigma}_i^z\\ - h\Sgn[\sin(\omega_2 t)] \sum_i \hat{\sigma}_i^z,
+  \hat{H}_2(t)=J\sum_{i}\hat{\sigma}_i^x\hat{\sigma}_{i+1}^x
+  +h\Big[\operatorname{sgn}\!\big(\sin\omega_1 t\big)\\-\operatorname{sgn}\!\big(\sin\omega_2 t\big)\Big]\sum_i\hat{\sigma}_i^z,
+  \label{eq:two_tone}
 \end{multline}
-where $\Sgn$ denotes the sign function. For the commensurate choice of drive frequencies specified above, the two-tone protocol dynamically cancels the interaction contribution over a driving cycle. The resulting flat quasienergy bands produce dynamical localization and thereby suppress heating. When combined with a binary Floquet protocol that includes a spin-flip operation, this localization mechanism can stabilize a subharmonic response and realize DTC order in a clean system. Small residual interactions can further stabilize the response against spin-rotation errors, which act as external perturbations. Rahaman et al.~\cite{rahaman2024prb} showed that the resulting stroboscopic magnetization can exhibit a robust period-doubled response with period $2T$. Thus, this protocol provides a route to realizing clean DTC order without relying on quenched disorder or prethermalization.
+where ``$\operatorname{sgn}$'' denotes the sign function. For the commensurate choice of drive frequencies specified above, the two-tone protocol cancels the interaction contribution over a driving cycle. The resulting flat quasienergy bands produce dynamical localization and thereby suppress heating. When combined with a binary Floquet protocol that includes a spin-flip operation, this localization mechanism stabilizes a subharmonic response. Exact cancellation alone, however, would leave the spins effectively non-interacting. As in Fig.~\ref{fig:dtc_fig_b}, the response would then not be locked against spin-rotation errors. Small residual interactions restore this rigidity and stabilize the response against spin-rotation errors, which act as external perturbations. Ref.~\cite{Banerjee_2025} showed that the resulting stroboscopic magnetization exhibits a robust period-doubled response with period $2T$. Thus, this protocol provides a route to realizing clean DTC order without relying on quenched disorder.
+% TODO: state where the residual interactions come from, and check whether the
+% period-doubling result is in Banerjee_2025 or rahaman2024prb.
 
 %==============================================================
 \section{\label{sec:integrability}Integrability and the (usual) absence of oscillations}
@@ -277,7 +319,29 @@ Note that integrable systems \emph{do} relax, just not to a thermal state. Expan
 \end{equation}
 In the thermodynamic limit, the energy differences $E_m-E_n$ form a continuum. The second term then dephases by the Riemann--Lebesgue lemma, leaving only the diagonal (GGE) part. Conservation laws determine \emph{where} the system relaxes, but they do not by themselves prevent relaxation. Persistent oscillations require more: the spectrum must contain an extensive set of exactly commensurate energy differences, and these differences must contribute finite weight to local observables. The next section explains what algebraic structure gives rise to such commensurability.
 
-\todo[inline]{dear Rahul, please write one para for your pra paper and another para on under review paper.}
+Time-crystalline responses can be realized in a class of integrable free-fermion models~\cite{Chandra2024}:
+\begin{equation}
+\begin{aligned}
+H(t)={}&\sum_{\bmk,-\bmk}\Big\{\big(a_0-b_{\bmk}\big)
+\big(c^{\dagger}_{\bmk}c_{\bmk}+c^{\dagger}_{-\bmk}c_{-\bmk}\big)\\
+&\quad+D_{\bmk}\big(c^{\dagger}_{\bmk}c^{\dagger}_{-\bmk}+\text{h.c.}\big)\Big\}.
+\end{aligned}
+\end{equation}
+This Cooper-pair Hamiltonian is specified by the parameters $a_{0}$, $b_{\bmk}$, and $D_{\bmk}$ and by the fermionic ladder operators $c^{\;}_{\pm\bmk}$ and $c^{\dagger}_{\pm\bmk}$. It consists of a kinetic term with coupling $a_{0}-b_{\bmk}$ and a pairing term with coupling $D_{\bmk}$, where $a_{0}$ is time dependent. Consider driving the system with a square-wave signal of period $T$ and a $50\%$ duty cycle, such that the first half-cycle flips the spins while the second half-cycle does not. The Hamiltonian during the $n$th cycle is then
+\begin{multline}
+			H^{\;}_{\bm{k}}(t) =  
+			\begin{cases}
+				\big(a_0-b_{\bmk}\big)\;\big(c^{\dagger}_{\bmk} c^{\;}_{\bmk}+c^{\dagger}_{-\bmk} c^{\;}_{-\bmk}\big)\\
+        +D_{\bmk}\;\bigg(c^{\dagger}_{\bmk} c^{\dagger}_{-\bmk}+\text { h. c.}\bigg) & nT \leq t \leq \left(n+\frac12 \right)T \\
+				a_{1} \bigg(c^{\dagger}_{\bmk} c^{\dagger}_{-\bmk}+\text { h. c.}\bigg) & \left(n+\frac12 \right)T \leq t \leq \left(n+1\right)T
+			\end{cases}
+		\end{multline}
+For a particular momentum, $\bmk=\bmk_0$, if $a_{0}=b_{\bmk_0}$ and $\omega\equiv 2\pi/T=2D_{\bmk_0}$, the wave function repeats after a time $2T$. This subharmonic response is a hallmark of discrete time-crystalline behavior.
+
+For the one-dimensional (1D) transverse-field Ising model (TFIM), the subharmonic conditions reduce to $a_{0}=b_{\bmk_0}=\cos(\bmk_0)$ and $\omega=2\sin(\bmk_0)$. However, a small deviation of the momentum from the specific value $\bmk_0$ destroys the time-crystalline response. In the two-dimensional (2D) TFIM, by contrast, the conditions become $a_{0}=b_{\bmk}=\cos(\bmk_x)+\alpha\cos(\bmk_y)$ and $\omega=2\sin(\bmk_x)+2\alpha\sin(\bmk_y)$. Setting $\alpha=0$ recovers the 1D case. The additional tunable parameter in two dimensions therefore permits a continuous range of momenta supporting a stable time-crystalline response. In the 1D TFIM, no analogous parameter is available, precluding the construction of a stable time crystal by this mechanism.
+
+To obtain stable time-crystalline responses in 1D, one can supplement the TFIM with a next-nearest-neighbor (NNN), or equivalently three-spin, interaction. The model remains integrable, while the subharmonic conditions become $a_{0}=b_{\bmk}=\cos(\bmk)+\lambda\cos(2\bmk)$ and
+$\omega=2\sin(\bmk)+2\lambda\sin(2\bmk)$, where $\lambda$ denotes the three-spin coupling. This additional interaction provides the tunability needed to construct a 1D time crystal and overcome the limitations of the 1D TFIM.
 
 %==============================================================
 \section{\label{sec:experiments}Experimental realizations}
