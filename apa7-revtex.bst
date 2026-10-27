@@ -426,7 +426,10 @@ FUNCTION {format.eprint}
     }
   if$
 }
-INTEGERS { nameptr namesleft numnames }
+INTEGERS { nameptr namesleft numnames max.names }
+
+FUNCTION {set.max.names}
+{ #2 'max.names := }  % lists with more names than this print as "First et al."
 
 
 STRINGS  { bibinfo}
@@ -439,6 +442,11 @@ FUNCTION {format.names}
   #1 'nameptr :=
   s num.names$ 'numnames :=
   numnames 'namesleft :=
+  % truncate to "First, A., et al." when there are more than max.names authors
+  numnames max.names >
+    { #1 'namesleft := }
+    'skip$
+  if$
     { namesleft #0 > }
     { s nameptr
       "{vv~}{ll}{, jj}{, f.}"
@@ -473,6 +481,10 @@ FUNCTION {format.names}
       namesleft #1 - 'namesleft :=
     }
   while$
+  numnames max.names >
+    { ", " * bbl.etal * }
+    'skip$
+  if$
   } if$
 }
 FUNCTION {format.names.ed}
@@ -1635,6 +1647,7 @@ FUNCTION {begin.bib}
 }
 EXECUTE {begin.bib}
 EXECUTE {init.state.consts}
+EXECUTE {set.max.names}
 ITERATE {call.type$}
 FUNCTION {end.bib}
 { newline$
